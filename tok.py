@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import dotenv
 import base64
 import requests
+import time
 
 
 class Token:
@@ -68,7 +69,8 @@ class Token:
         }
         data = {
             "grant_type": "refresh_token",
-            "refresh_token": os.getenv("REFRESH_TOKEN")
+            "refresh_token": os.getenv("REFRESH_TOKEN"),
+            "expires_at": time.time() + 3600
         }
 
         response = requests.post(token_url, headers=headers, data=data)
@@ -89,7 +91,7 @@ class Token:
         return response
 
 if __name__ == "__main__":
-    token = Token("AQC7yjiBfnKLu6QN-3FmbfS3rWNtMrnqgIkxy0UWD9EKCwBZg5crPzjYaa6Df_9oh21QnWbJbDmc9PXohz1ifQSp6iUSIISysLGbMomcyh919FbF_QXq3RPpfI12e9sgCOH51nQroka0wrp48bx9dSxDkAM5jgD2qu_oD4zr5brSH6Ho4TiqvrLHN-tJz8HZnfGUWmwHgPoqygNuFiK168pqZhpbKP4AcfCL5qwElon52813rYrWD--c")
+    token = Token("")
     token.embbed_token()
     token.refresh_access_token()
 
