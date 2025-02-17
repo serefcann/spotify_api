@@ -4,7 +4,7 @@ import dotenv
 import requests
 import pandas as pd
 import datetime
-
+import time 
 
 load_dotenv("C:\\Users\\şerefcanmemiş\\Documents\\Projects\\spoti\\.env")
 token = os.getenv("TOKEN")
@@ -23,18 +23,26 @@ def recently_played_track(token,limit):
     if response.status_code !=200:
         print(response.text)
     last_tracks = response.json().get("items")
+    last_tracks = last_tracks[::-1]
     values_list = []
     for track in last_tracks:
         track_name = track.get("track").get("name")
         track_artist = track.get("track").get("album").get("artists")[0].get("name")
         track_artist_id = track.get("track").get("album").get("artists")[0].get("id")
         track_popularity = track.get("track").get("popularity",0)
-        track_release = track.get("track").get("album").get("release_date")
+        release = track.get("track").get("album").get("release_date")
+        try:
+            track_release = datetime.datetime.strptime(release,"%Y-%m-%d").date()
+        except ValueError:
+            try:
+                track_release = datetime.datetime.strptime(release,"%Y").date()
+            except ValueError:
+                track_release = None
         values_list.append((track_name,track_artist,track_artist_id,track_popularity,track_release,datetime.datetime.now()))
+        time.sleep(0.0002)
         
-    return values_list
-
-
+    return values_list[::-1]
+recently_played_track(token=token,limit=50)
 
 def artist_togenres(token,artist_id):
     artist_url = f"https://api.spotify.com/v1/artists/{artist_id}"

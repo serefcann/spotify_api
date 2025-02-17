@@ -44,24 +44,24 @@ class spotify_db:
         while index < len(new_batch) and i < len(past_batch):
             if past_batch[i][0] != new_batch[index][0]: # 0 3 1 4 
                 nonmatch_list.append(new_batch[index])
-                print(past_batch[i][0],new_batch[index])
+                print(past_batch[i][0],new_batch[index][0])
                 index += 1         
             else:
                 index += 1
                 same_track +=1
                 i +=1
-            if same_track >=10:
+            if same_track >=3:
                 break
             if index >= len(new_batch):
-                i += 1
-                index = 0  # new_batch_list baştan kontrol edilmeli
+                i +=1
+                index = 0
         return nonmatch_list
     
     def store_tracks(self,tracks_to_store):
         insertion = """INSERT INTO spotify_track (name, artist, artist_id, popularity, release_date, saved_at) 
                 VALUES (%s, %s, %s, %s, %s, %s)"""
         for track in tracks_to_store:
-            print(track[0])
+           print(track)
         answer = input("Bu sarkilari database'de depolamak istiyorsan 'yes' istemiyorsan 'no' yaz: ")
         
         if answer == 'yes':
@@ -74,8 +74,6 @@ class spotify_db:
             print("sarkilar depolanmadi")
             self.conn.close()
             self.mycursor.close()
-        
-
 
 if __name__  == "__main__":
     spotify=spotify_db()

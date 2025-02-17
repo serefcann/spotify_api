@@ -91,8 +91,7 @@ class Token:
         return response
 
 if __name__ == "__main__":
-    token = Token("")
+    token = Token("AQBkm8felChvZMkM1PTkdo_4CdbJducVPf5gghHmgAnEnl7g_IsXPR1pZ7GXBVCjwei_mG8ZBqbFA9vE-nNyKBNRK4djStVpsgV7fNSdeuVutqf_XjKCu8zqWccxBKNvOYYkRf1v5eklCc9FJOJA2nHirTpfV8I_DXBYs0XKbKkNE7y_6ono5pT_mLVwdpRKnPZvIPKkqEYB3XFE0R81ySq5VJdLxBH2aAlKFAB8V7ag2g1_Ha1QhQ3vR9FY9dbhM1qenXPU2_EolOvqa9OADK_R2kdMrQ")
     token.embbed_token()
     token.refresh_access_token()
-
 
