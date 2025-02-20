@@ -4,6 +4,7 @@ import mysql.connector
 import datetime
 from track import recently_played_track
 import os
+import requests
 
 class spotify_db:
     def __init__(self):
@@ -56,6 +57,7 @@ class spotify_db:
                 i +=1
                 index = 0
         return nonmatch_list
+        
     
     def store_tracks(self,tracks_to_store):
         insertion = """INSERT INTO spotify_track (name, artist, artist_id, popularity, release_date, saved_at) 
@@ -80,6 +82,7 @@ if __name__  == "__main__":
     recent_track_list = recently_played_track(token=os.getenv("TOKEN"),limit=50)
     tracks_to_store = spotify.get_nonoverlapping_tracks(new_batch=recent_track_list)
     spotify.store_tracks(tracks_to_store=tracks_to_store)
+    
 
 
     
