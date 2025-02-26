@@ -18,6 +18,8 @@ def connect_db():
 
 conn = connect_db()
 mycursor = conn.cursor()
+mycursor.execute("SELECT * FROM spotify_track ORDER BY saved_at DESC LIMIT 40")
+mycursor.fetchall()
 
 #mycursor.execute(f"SELECT * FROM spotify_track\
  #                       WHERE saved_at {datetime.datetime.now()-datetime.timedelta(days=1)} 
@@ -39,7 +41,6 @@ fig = px.bar(df, x='track_count', y='artist', orientation='h',
              category_orders={"artist": df.sort_values("track_count", ascending=False)["artist"].tolist()})
 
 fig.show()
-
 
 
 query = """

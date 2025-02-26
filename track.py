@@ -9,7 +9,7 @@ import time
 load_dotenv("C:\\Users\\şerefcanmemiş\\Documents\\Projects\\spoti\\.env")
 token = os.getenv("TOKEN")
 
-def recently_played_track(token,limit):
+def recently_played_track(token,limit=50):
     url = "https://api.spotify.com/v1/me/player/recently-played"
     header = {
         "Authorization":f"Bearer {token}",
@@ -25,22 +25,14 @@ def recently_played_track(token,limit):
     last_tracks = response.json().get("items")
     last_tracks = last_tracks[::-1]
     
-    #artist_ids = set()
-    #for track in last_tracks:
-    #    track_artist_id = track.get("track").get("album").get("artists")[0].get("id")
-    #    artist_ids.add(track_artist_id)
-        
-    # artist_genres_map = artists_togenres(token=token,artist_ids=list(artist_ids))
-    
     values_list = []
     for track in last_tracks:
         track_name = track.get("track").get("name")
         track_artist = track.get("track").get("album").get("artists")[0].get("name")
         track_artist_id = track.get("track").get("album").get("artists")[0].get("id")
         track_popularity = track.get("track").get("popularity",0)
+        
         release = track.get("track").get("album").get("release_date")
-        #track_genres = artist_genres_map.get(track_artist_id)
-
         try:
             track_release = datetime.datetime.strptime(release,"%Y-%m-%d").date()
         except ValueError:
@@ -49,7 +41,7 @@ def recently_played_track(token,limit):
             except ValueError:
                 track_release = None
         values_list.append((track_name,track_artist,track_artist_id,track_popularity,track_release,datetime.datetime.now()))
-        time.sleep(0.0002)
+        time.sleep(0.0003)
         
     return values_list[::-1]
 recently_played_track(token=token,limit=50)
@@ -64,11 +56,14 @@ def artists_togenres(token,artist_ids):
         "Authorization":f"Bearer {token}"
     }
     response = requests.get(artist_url,headers=header,params=params)
-    # name = response.json().get("name")
-    # print(f"current artist name: {name}")
+    if response.status_code !=200:
+        print(response.text)
     artists_data = response.json().get("artists")
     return {artist.get("id"):artist.get("genres") for artist in artists_data}
 artists_togenres(token=token,artist_ids=liste)
+
+
+
 
 
 def search_track(token,genres,limit):
