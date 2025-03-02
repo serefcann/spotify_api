@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 import dotenv
 import requests
 import pandas as pd
-import time
 
 # kullanicinin yazdigi ture gore(dinledigi sarkiya gore) daha once playliste ekledigi sarkilari getir
 

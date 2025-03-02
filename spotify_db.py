@@ -36,7 +36,8 @@ class spotify_db:
         rows = self.mycursor.fetchall()
         return rows
     
-    def get_nonoverlapping_tracks(self,new_batch):
+    def get_nonoverlapping_tracks(self):
+        new_batch = recently_played_track(token=os.getenv("TOKEN"),limit=50)
         past_batch = self.get_past_batch()
         
         if not past_batch or not new_batch:
@@ -48,9 +49,8 @@ class spotify_db:
         
         if past_batch[0][0] != new_batch[0][0]:
             while index < len(new_batch) and i < len(past_batch):
-                if past_batch[i][0] != new_batch[index][0]: # 0 3 1 4 
+                if past_batch[i][0] != new_batch[index][0]:
                     nonmatch_list.append(new_batch[index])
-                    #print(past_batch[i][0],new_batch[index][0])
                     index += 1         
                 else:
                     index += 1
@@ -64,46 +64,27 @@ class spotify_db:
         else:
             print("already all tracks matched")
             return []
+        if len(nonmatch_list) > 50:
+            return new_batch
+        df = pd.DataFrame(data=nonmatch_list)
+        print(df)
         return nonmatch_list
         
     
     def store_tracks(self,tracks_to_store):
+        
         if not tracks_to_store:
-            print("No new tracks to store.")
+            print("there are no new tracks to store")
             return
         
         insertion = """INSERT INTO spotify_track (name, artist, artist_id, popularity, release_date, saved_at) 
-                VALUES (%s, %s, %s, %s, %s, %s)"""
-                
-        df = pd.DataFrame(data=tracks_to_store)
-        print(df)
+                       VALUES (%s, %s, %s, %s, %s, %s)"""
         
-        answer = input("Bu sarkilari database'de depolamak istiyorsan 'yes' istemiyorsan 'no' yaz: ")
-        
-        if answer == 'yes':
-            self.mycursor.executemany(insertion,tracks_to_store)
-            self.conn.commit()
-            print("depolandi")        
-        else:
-            print("sarkilar depolanmadi")
-            #self.conn.close()
-            #self.mycursor.close()
+        # Veritabanına şarkıları ekleme
+        self.mycursor.executemany(insertion, tracks_to_store)
+        self.conn.commit()
             
-    def artists_genres_store(self):
-        self.mycursor.execute("""
-            SELECT DISTINCT t.artist_id
-            FROM spotify_track t
-            LEFT JOIN spotify_artist_genres g
-            ON t.artist_id = g.artist_id
-            WHERE g.artist_id IS NULL
-        """)
-        rows = self.mycursor.fetchall()
-        db_ids = set(row[0] for row in rows)
-        
-        if not db_ids:
-            print("No new artists to update.")
-            return
-            
+    def get_several_artists(self,db_ids):
         artist_url = f"https://api.spotify.com/v1/artists/"
         params = {"ids":",".join(db_ids)}
         header = {
@@ -118,43 +99,48 @@ class spotify_db:
         if not artists_data:
             print("API returned no artist data.")
             return
-        artist_ids_genres = []
+        return artists_data
+           
+    def artists_genres_store(self):
+        self.mycursor.execute("""
+            SELECT DISTINCT t.artist_id
+            FROM spotify_track t
+            LEFT JOIN spotify_artist_genres g
+            ON t.artist_id = g.artist_id
+            WHERE g.artist_id IS NULL
+        """)
+        rows = self.mycursor.fetchall()
+        nonexist_indb_artistids = set(row[0] for row in rows)
+        db_ids = list(nonexist_indb_artistids)
         
+        print(f"Length of the db_ids is {len(db_ids)}")
+        
+        if not db_ids:
+            print("No new artists to update.")
+            return
+            
+        artists_data = self.get_several_artists(db_ids=db_ids)
+        
+        artist_ids_genres = []
         for artist in artists_data:
             artist_id = artist.get("id")
             artist_genres = artist.get("genres",None)
             
-            if not artist_genres:
-                artist_ids_genres.append((artist_id,None))
-            else:
+            if artist_genres:
                 for genre in artist_genres:
                     artist_ids_genres.append((artist_id,genre))
                     
         if artist_ids_genres:
-            df_to_store = pd.DataFrame(data=artist_ids_genres)
-            print(df_to_store)
+            insertion = """INSERT INTO spotify_artist_genres (artist_id, genre) VALUES (%s, %s)"""
+            self.mycursor.executemany(insertion, artist_ids_genres)
+            self.conn.commit()
+            print("Genres stored successfully!")
+            self.mycursor.close()
+            self.conn.close()
             
-            answer = input("depolamak ister misin yes veya no: ")
-            
-            if answer == "yes":
-                self.mycursor.execute("""
-                        INSERT INTO spotify_artist_genres (artist_id, genre) 
-                        VALUES (%s, %s)
-                    """, (artist_id, genre))    
-                self.conn.commit()
-                self.conn.close()
-                self.mycursor.close()
-                print("sarki turleri depolandi")
-            else:
-                self.conn.close()
-                self.mycursor.close()
-                print("sarki turleri depolanmadi")
-
 if __name__  == "__main__":
     spotify=spotify_db()
-    recent_track_list = recently_played_track(token=os.getenv("TOKEN"),limit=50)
-    tracks_to_store = spotify.get_nonoverlapping_tracks(new_batch=recent_track_list)
-    spotify.store_tracks(tracks_to_store=tracks_to_store)
+    spotify.store_tracks()
     spotify.artists_genres_store()
     
 

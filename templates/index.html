@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benim diyar selin</title>
+    <!-- css dosya baglama -->
+     <link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}">
+</head>
+<body>
+    <h1>My Spotify project</h1>
+    <button onclick="fetchTracks()">Fetch Tracks</button>
+    <button id="store-button" class="hidden" onclick="storeTracks()">Store Tracks</button>
+
+    <p id="result"></p>
+    
+    <table id="track-table",class="hidden">
+        <thead>
+            <tr>
+                <th>Şarkı</th>
+                <th>Sanatçı</th>
+                <th>Sanatçı id</th>
+                <th>Popülerlik</th>
+                <th>Çıkış tarihi</th>
+                <th>Kaydedilme zamanı</th>
+            </tr>
+        </thead>
+        <tbody id = "track-table-body"> </tbody>
+    </table>
+
+    <script>
+        function fetchTracks() {
+            fetch('/fetch-tracks', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerText = data.message;
+                
+                if (data.tracks.length > 0) {
+                    let trackTable = document.getElementById("track-table");
+                    let trackTableBody = document.getElementById("track-table-body")
+                    
+                    trackTableBody.innerHTML = "";
+                    
+                    data.tracks.forEach(track => {
+                        let row = document.createElement("tr");
+
+                        track.forEach(item => {
+                            let cell = document.createElement("td");
+                            cell.textContent = item;
+                            row.appendChild(cell);
+                        });
+                        trackTableBody.appendChild(row);
+                    });
+
+                    trackTable.classList.remove("hidden")
+                    document.getElementById("store-button").classList.remove("hidden");
+                } else {
+                    document.getElementById("track-table").classList.add("hidden")
+                    document.getElementById("store-button").classList.add("hidden");
+                }
+            })
+            .catch(error => {
+                document.getElementById("result").innerText = "already all tracks matched";
+                console.error("Error:", error);
+            });
+            trackTable.classList.remove("hidden");
+        }
+    </script>
+    <script>
+        function storeTracks()
+        {
+            fetch('/store-tracks',{method : 'POST'})
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = data.message;
+                console.log("Success",data);
+                let trackTable = document.getElementById("track-table")
+                let trackTableBody = document.getElementById("track-table-body")
+                trackTableBody.innerHTML = "";
+                trackTable.innerHTML = "";
+            })
+            
+            .catch(error => {
+                document.getElementById("result").innerHTML = "Error storing tracks!";
+                console.error("Error:", error)
+            })
+        }
+    </script>
+</body>
+</html>

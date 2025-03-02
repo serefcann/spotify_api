@@ -91,7 +91,8 @@ class Token:
         return response
 
 if __name__ == "__main__":
-    token = Token("")
+    token = input("tokeni giriniz: ")
+    token = Token(token)
     token.embbed_token()
     token.refresh_access_token()
 

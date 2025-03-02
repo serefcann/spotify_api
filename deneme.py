@@ -1,9 +1,9 @@
 import os
 from dotenv import load_dotenv
 import dotenv
-import base64
 import requests
 import pandas as pd
+
 class sanatci:
     def __init__(self):
         self.search_url = "https://api.spotify.com/v1/search"
@@ -106,9 +106,10 @@ def get_artists_top_tracks(artist_id,access_token):
         return response.json().get("tracks")
     else:
         print(response.text)
-top_tracks= get_artists_top_tracks(artist_id=artist_id,access_token=token)
+#top_tracks= get_artists_top_tracks(artist_id=artist_id,access_token=token)
 
 top_songs=[]
-for i in top_tracks:
-    top_songs.append([i.get("name"),i.get("popularity")])
-top_songs
+#for i in top_tracks:
+#    top_songs.append([i.get("name"),i.get("popularity")])
+#top_songs
+
