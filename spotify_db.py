@@ -56,7 +56,7 @@ class spotify_db:
                     index += 1
                     same_track +=1
                     i +=1
-                if same_track >=1:
+                if same_track >=5:
                     break
                 if index >= len(new_batch):
                     i +=1

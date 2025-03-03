@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button onclick="returnHomepage()">return to homepage</button>
+    <h1>Spotify visuals</h1>
+    <br>
+    <label for="chart-type"><b>İstediğin plotu seç:</b></label>
+    <select name="chart-type" id="chart-type">
+        <option value="songs">Top 10 Listened Songs</option>
+        <option value="genres">Top 10 Genres</option>
+        <option value="artists">Top 10 Listened Artists</option>
+     </select>
+
+     <div id="plot-container"></div>
+
+     <script>
+        let selectElement = document.getElementById("chart-type")
+        selectElement.addEventListener("change",function(){
+            let selectedValue = this.value;
+            $.ajax({
+                url: '/get-plot',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ 'chart-type': selectedValue }),
+                success: function(response) {
+                    let plotData = JSON.parse(response.graph);
+                    Plotly.newPlot('plot-container',plotData);
+                },
+                error: function(error) {
+                    console.error('Hata:', error);
+                }
+            })
+        })
+     </script>
+     <script>
+        function returnHomepage(){
+            window.location.href = "{{ url_for('index') }}";
+        }
+     </script>
+
+</body>
+</html>

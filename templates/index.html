@@ -11,6 +11,9 @@
     <h1>My Spotify project</h1>
     <button onclick="fetchTracks()">Fetch Tracks</button>
     <button id="store-button" class="hidden" onclick="storeTracks()">Store Tracks</button>
+    <button onclick="goToNewPage()">Analysis</button>
+
+    <span class="space"> </span>
 
     <p id="result"></p>
     
@@ -78,12 +81,16 @@
                 let trackTableBody = document.getElementById("track-table-body")
                 trackTableBody.innerHTML = "";
                 trackTable.innerHTML = "";
-            })
-            
+            })   
             .catch(error => {
                 document.getElementById("result").innerHTML = "Error storing tracks!";
                 console.error("Error:", error)
             })
+        }
+    </script>
+    <script>
+        function goToNewPage(){
+            window.location.href = "{{ url_for('analysis') }}"
         }
     </script>
 </body>

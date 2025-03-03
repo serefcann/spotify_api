@@ -1,6 +1,9 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import os
 from spotify_db import spotify_db
+from track_visualization import visual
+import json
+import plotly
 #from tok import Token
 app = Flask(__name__)
 
@@ -31,8 +34,26 @@ def store_tracks():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
+@app.route('/analysis')
+def analysis():
+    return render_template('analysis.html')
+    
+@app.route("/get-plot",methods=["POST"])
+def get_plot():
+    plot_type = request.json.get('chart-type')
+    vis = visual()
+    if plot_type == "artists":
+        data = [vis.most_listened_artists()]
+    elif plot_type == "genres":
+        data = [vis.most_listened_genres()]
+    elif plot_type == "songs":
+        data = [vis.most_listened_songs()]
+    else:
+        data = []
+    graphJSON = json.dumps(data,cls=plotly.utils.PlotlyJSONEncoder)
+    return jsonify({"graph": graphJSON})
+
 if __name__ == '__main__':
     app.run(debug=True)
-
 
 
