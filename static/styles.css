@@ -4,3 +4,7 @@
 .space {
     margin-right: 500px;
 }
+.dark-mode {
+    background-color: black;
+    color: white;
+}

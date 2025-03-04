@@ -50,10 +50,9 @@ def get_plot():
         data = [vis.most_listened_songs()]
     else:
         data = []
-    graphJSON = json.dumps(data,cls=plotly.utils.PlotlyJSONEncoder)
+    graphJSON = json.dumps(data[0],cls=plotly.utils.PlotlyJSONEncoder)
     return jsonify({"graph": graphJSON})
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 

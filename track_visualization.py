@@ -1,12 +1,13 @@
 from spotify_db import spotify_db
 import mysql.connector
 import pandas as pd
-import datetime
+import plotly
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 import os
 from dotenv import load_dotenv
+import json
 
 class visual():
     def __init__(self):
@@ -35,7 +36,7 @@ class visual():
         df = pd.DataFrame(columns=["artist","track_count"],data=data)
         plt.figure(figsize=(12,6))
         fig = px.bar(df, x='track_count', y='artist', orientation='h',
-                    title="My Top 10 Most Listened Artists",
+                    title="My Top Artists",
                     text_auto=True, color='track_count',
                     color_continuous_scale='magma',
                     category_orders={"artist": df.sort_values("track_count", ascending=False)["artist"].tolist()})
@@ -56,7 +57,7 @@ class visual():
         df = pd.DataFrame(columns=["track_name","track_count","genres"],data=data)
         plt.figure(figsize=(12,6))
         fig = px.bar(df, x='track_count', y='track_name', orientation='h',
-                    title="My Top 10 Most Listened Songs",
+                    title="My Top Songs",
                     text_auto=True, color='track_count',
                     color_continuous_scale='Plasma',
                     category_orders={"track_name": df.sort_values("track_count", ascending=False)["track_name"].tolist()})
@@ -75,11 +76,8 @@ class visual():
         self.mycursor.execute(query)
         data = self.mycursor.fetchall()
         df = pd.DataFrame(columns=["genre","genre_count"],data=data)
-        plt.figure(figsize=(6,3))
-        fig = px.pie(df,values="genre_count", names="genre",title="Distribution of Song Genres Listened")
+        plt.figure(figsize=(12,6))
+        fig = px.pie(df,values="genre_count", names="genre",title="Top 10 Genres Listened",height=550)
         fig.update_traces(textposition="inside",textinfo="percent+label")
         return fig
-
-vis = visual()
-vis.most_listened_artists()
 
