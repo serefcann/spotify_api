@@ -167,11 +167,11 @@ python app.py
 
 ### 📈 Most Listened Artists (Bar Chart)
 
-![alt text](mostListenedArtists.png)
+![alt text](screenshots/mostListenedArtists.png)
 
 ### 📈 Most Listened Songs (Bar Chart)
 
-![alt text](mostListenedSongs.png)
+![alt text](screenshots/mostListenedSongs.png)
 
 ---
 
