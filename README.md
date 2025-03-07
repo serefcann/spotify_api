@@ -156,7 +156,7 @@ python app.py
 
 ---
 
-## Screenshots (Add Your Screenshots Here)
+## Screenshots
 
 ### 🎵 Fetch Tracks Page
 
