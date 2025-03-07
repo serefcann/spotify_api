@@ -34,6 +34,7 @@ The project uses **Flask** for the web interface, **MySQL** for storing data, an
 
 - A Flask-based web app that allows users to:
   - Fetch new tracks.
+  - Store new tracks.
   - View data visualizations.
 
 ---
@@ -43,7 +44,7 @@ The project uses **Flask** for the web interface, **MySQL** for storing data, an
 ### **Fetch Tracks Algorithm**
 
 1. **Spotify API Request:** The app makes an API call to fetch the recently played tracks.
-2. **Duplicate Check:** It compares new tracks with those already stored in the database.
+2. **Duplicate Check:** It compares new tracks with those already sequentially stored in the database if new tracks doesn't match sequentially with stored songs the code adds new tracks.
 3. **Storage Decision:** If new tracks exist, it asks the user whether they want to store them.
 4. **Database Insertion:** If confirmed, the new tracks are inserted into the MySQL database.
 
@@ -147,7 +148,7 @@ python app.py
 ### **4. Fetch and Store Tracks**
 
 - Click the "Fetch Tracks" button.
-- View fetched tracks and confirm storage.
+- View fetched tracks click the "Store Track" button and confirm storage.
 
 ### **5. View Data Visualizations**
 
@@ -159,7 +160,7 @@ python app.py
 
 ### 🎵 Fetch Tracks Page
 
-*Example screenshot of the fetch tracks button*
+![alt text](screenshots/fetchTracksPage.png)
 
 ### 📊 Most Listened Genres (Pie Chart)
 
