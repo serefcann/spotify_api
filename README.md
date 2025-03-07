@@ -163,7 +163,7 @@ python app.py
 
 ### 📊 Most Listened Genres (Pie Chart)
 
-![alt text](mostListenedGenres.png)
+![alt text](screenshots/mostListenedGenres.png)
 
 ### 📈 Most Listened Artists (Bar Chart)
 
