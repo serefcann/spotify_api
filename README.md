@@ -1,4 +1,4 @@
-# spotify_api# Spotify Listening History Analysis
+# Spotify Listening History Analysis
 
 ## Overview
 
