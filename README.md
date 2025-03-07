@@ -163,11 +163,15 @@ python app.py
 
 ### 📊 Most Listened Genres (Pie Chart)
 
-*Example screenshot of the pie chart*
+![alt text](mostListenedGenres.png)
 
 ### 📈 Most Listened Artists (Bar Chart)
 
-*Example screenshot of the bar chart*
+![alt text](mostListenedArtists.png)
+
+### 📈 Most Listened Songs (Bar Chart)
+
+![alt text](mostListenedSongs.png)
 
 ---
 
@@ -181,7 +185,7 @@ python app.py
 
 ## Contributors
 
-- **[Your Name]** - Developer
+- **Seref Can** - Developer
 
 Feel free to contribute by submitting a pull request! 🚀
 
