@@ -40,7 +40,9 @@ def analysis():
     
 @app.route("/get-plot",methods=["POST"])
 def get_plot():
-    plot_type = request.json.get('chart-type')
+    data = request.json
+    plot_type = data.get('chart-type')
+    theme = data.get("theme")
     vis = visual()
     if plot_type == "artists":
         data = [vis.most_listened_artists()]
@@ -50,6 +52,10 @@ def get_plot():
         data = [vis.most_listened_songs()]
     else:
         data = []
+    if theme == "dark":
+        data[0] = data[0].update_layout(template="plotly_dark")
+    else:
+        data[0] = data[0].update_layout(template ="simple_white" )
     graphJSON = json.dumps(data[0],cls=plotly.utils.PlotlyJSONEncoder)
     return jsonify({"graph": graphJSON})
 

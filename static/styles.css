@@ -8,3 +8,21 @@
     background-color: black;
     color: white;
 }
+
+.top-right-button {
+    position: fixed; /* Sayfa kaydırılsa bile sabit kalır */
+    top: 20px;       /* Üstten boşluk */
+    right: 20px;     /* Sağdan boşluk */
+    padding: 10px 20px; /* Buton içi boşluk */
+    background-color: #007bff; /* Buton arka plan rengi */
+    color: white;              /* Buton yazı rengi */
+    border: none;              /* Kenarlık yok */
+    border-radius: 50px;        /* Köşeleri yuvarlak */
+    cursor: pointer;           /* Fare imleci buton üzerinde el işareti olsun */
+    font-size: 16px;           /* Yazı boyutu */
+}
+
+/* Butonun hover (üzerine gelme) efekti */
+.top-right-button:hover {
+    background-color: #0056b3; /* Buton rengi koyulaşır */
+}

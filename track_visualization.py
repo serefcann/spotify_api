@@ -39,6 +39,7 @@ class visual():
                     title="My Top Artists",
                     text_auto=True, color='track_count',
                     color_continuous_scale='magma',
+                    template="simple_white",
                     category_orders={"artist": df.sort_values("track_count", ascending=False)["artist"].tolist()})
 
         return fig
@@ -60,6 +61,7 @@ class visual():
                     title="My Top Songs",
                     text_auto=True, color='track_count',
                     color_continuous_scale='Plasma',
+                    template="simple_white",
                     category_orders={"track_name": df.sort_values("track_count", ascending=False)["track_name"].tolist()})
 
         return fig
@@ -77,7 +79,11 @@ class visual():
         data = self.mycursor.fetchall()
         df = pd.DataFrame(columns=["genre","genre_count"],data=data)
         plt.figure(figsize=(12,6))
-        fig = px.pie(df,values="genre_count", names="genre",title="Top 10 Genres Listened",height=550)
+        fig = px.pie(df,values="genre_count",
+                     names="genre",
+                     title="Top 10 Genres Listened",
+                     height=550,
+                     template="simple_white",)
         fig.update_traces(textposition="inside",textinfo="percent+label")
         return fig
 
