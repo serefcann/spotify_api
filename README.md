@@ -1,4 +1,4 @@
-# spotify_api# Spotify Listening History Analysis
+# Spotify Listening History Analysis
 
 ## Overview
 
@@ -156,7 +156,7 @@ python app.py
 
 ---
 
-## Screenshots (Add Your Screenshots Here)
+## Screenshots
 
 ### 🎵 Fetch Tracks Page
 
@@ -189,4 +189,5 @@ python app.py
 - **Seref Can** - Developer
 
 Feel free to contribute by submitting a pull request! 🚀
+
 
