@@ -1,6 +1,24 @@
 .hidden {
     display: none;
 }
+table {
+    margin-right: auto;
+    border-collapse: collapse; /* Borders look better */
+    width: 75%; /* Adjust width as needed */
+}
+
+th, td {
+    padding: 5px;
+    text-align: center; /* Center text inside cells */
+    vertical-align: middle; /* Center text vertically */
+}
+
+/* Optional: Make header stand out */
+th {
+    background-color: #16a949; /* Spotify green */
+    color: white;
+    font-weight: bold;
+}
 button {
     padding: 10px 20px;
     cursor: pointer;
@@ -25,8 +43,8 @@ button:hover {
     top: 20px;       /* Üstten boşluk */
     right: 20px;     /* Sağdan boşluk */
     padding: 10px 20px; /* Buton içi boşluk */
-    background-color: #007bff; /* Buton arka plan rengi */
-    color: white;              /* Buton yazı rengi */
+    background-color: #1ED760; /* Buton arka plan rengi */
+    color: var(--bg-color);              /* Buton yazı rengi */
     border: none;              /* Kenarlık yok */
     border-radius: 50px;        /* Köşeleri yuvarlak */
     cursor: pointer;           /* Fare imleci buton üzerinde el işareti olsun */
@@ -35,7 +53,7 @@ button:hover {
 
 /* Butonun hover (üzerine gelme) efekti */
 .top-right-button:hover {
-    background-color: #0056b3; /* Buton rengi koyulaşır */
+    background-color: #066326; /* Buton rengi koyulaşır */
 }
 
 body {
@@ -98,9 +116,10 @@ label {
 
 /* Container için stil */
 .header-container {
-    position: relative; /* Container'ı referans alanı yap */
-    width: 100%; /* Genişliği sayfa genişliği kadar yap */
-    height: 60px; /* Container yüksekliği */
+    display: flex; /* Elementleri yatay hizala */
+    gap: 10px; /* Logo ve başlık arasında 10px boşluk */
+    justify-content: center;
+
         }
 
         /* Buton için stil */
@@ -115,10 +134,12 @@ label {
 
         /* Başlık için stil */
 .header-container .spotify-title {
-    position: absolute; /* Başlığı sabitler */
-    top: 10px; /* Üstten boşluk */
-    left: 50%; /* Sayfanın yatay ortasına yerleştir */
-    transform: translateX(-50%); /* Tam ortalamak için */
-    margin: 0; /* Varsayılan margin'i kaldır */
-    text-align: center; /* Metni ortala */
+    position: flex; /* Başlığı sabitler */
+    margin: 0;
+    padding-right: 50px;
+    padding-top: 5px;
+                }
+.header-container .spotify-logo {
+    width: 50px;
         }
+

@@ -40,7 +40,7 @@ class visual():
         fig = px.bar(df, x='track_count', y='artist', orientation='h',
                     title="My Top Artists",
                     text_auto=True, color='track_count',
-                    color_continuous_scale='magma',
+                    color_continuous_scale='algae_r',
                     template="simple_white",
                     category_orders={"artist": df.sort_values("track_count", ascending=False)["artist"].tolist()})
 
@@ -62,7 +62,7 @@ class visual():
         fig = px.bar(df, x='track_count', y='track_name', orientation='h',
                     title="My Top Songs",
                     text_auto=True, color='track_count',
-                    color_continuous_scale='magma',
+                    color_continuous_scale='algae_r',
                     template="simple_white",
                     category_orders={"track_name": df.sort_values("track_count", ascending=False)["track_name"].tolist()})
 
@@ -85,7 +85,8 @@ class visual():
                      names="genre",
                      title="Top 10 Genres Listened",
                      height=550,
-                     template="simple_white",)
+                     color_discrete_map=['green','blue','red','black'],
+                     template="simple_white")
         fig.update_traces(textposition="inside",textinfo="percent+label")
         return fig
 
