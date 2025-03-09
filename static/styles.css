@@ -1,13 +1,24 @@
 .hidden {
     display: none;
 }
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: #352F44;
+    color: #FAF0E6;
+}
+button:hover {
+    background-color: #282332;
+}
+
 .space {
     margin-right: 500px;
 }
-.dark-mode {
-    background-color: black;
-    color: white;
-}
+
+
 
 .top-right-button {
     position: fixed; /* Sayfa kaydırılsa bile sabit kalır */
@@ -26,3 +37,88 @@
 .top-right-button:hover {
     background-color: #0056b3; /* Buton rengi koyulaşır */
 }
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Dark & Light Mode için değişkenler */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333;
+    --select-bg: #f5f5f5;
+    --select-hover: #e0e0e0;
+    --border-color: #ccc;
+}
+
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --select-bg: #333;
+    --select-hover: #444;
+    --border-color: #555;
+}
+
+/* Label Stili */
+label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Select Box */
+#chart-type {
+    width: 100%;
+    max-width: 280px;
+    padding: 6px;
+    font-size: 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--select-bg);
+    color: var(--text-color);
+    outline: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Select Hover & Focus */
+#chart-type:hover, #chart-type:focus {
+    background-color: var(--select-hover);
+    border-color: var(--text-color);
+}
+
+/* Option Stilleri */
+#chart-type option {
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Container için stil */
+.header-container {
+    position: relative; /* Container'ı referans alanı yap */
+    width: 100%; /* Genişliği sayfa genişliği kadar yap */
+    height: 60px; /* Container yüksekliği */
+        }
+
+        /* Buton için stil */
+.header-container .return-homepage-button {
+    position: absolute; /* Butonu sabitler */
+    top: 5px; /* Üstten boşluk */
+    left: 5px; /* Soldan boşluk */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+        }
+
+        /* Başlık için stil */
+.header-container .spotify-title {
+    position: absolute; /* Başlığı sabitler */
+    top: 10px; /* Üstten boşluk */
+    left: 50%; /* Sayfanın yatay ortasına yerleştir */
+    transform: translateX(-50%); /* Tam ortalamak için */
+    margin: 0; /* Varsayılan margin'i kaldır */
+    text-align: center; /* Metni ortala */
+        }

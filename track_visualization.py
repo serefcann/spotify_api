@@ -9,12 +9,14 @@ import os
 from dotenv import load_dotenv
 import json
 
+
 class visual():
     def __init__(self):
         load_dotenv("C:\\Users\\şerefcanmemiş\\Documents\\Projects\\spoti\\.env")
         self.PASSWORD = os.getenv("PASSWORD")
         self.conn = self.connect_db()
         self.mycursor = self.conn.cursor()
+        self.color_list = ['#ffffff','#f9dfed','#f1bef4','#c19eee','#7e87e8','#5eaee2','#3dddc8','#1dd75e']
         
     
     def connect_db(self):
@@ -60,7 +62,7 @@ class visual():
         fig = px.bar(df, x='track_count', y='track_name', orientation='h',
                     title="My Top Songs",
                     text_auto=True, color='track_count',
-                    color_continuous_scale='Plasma',
+                    color_continuous_scale='magma',
                     template="simple_white",
                     category_orders={"track_name": df.sort_values("track_count", ascending=False)["track_name"].tolist()})
 

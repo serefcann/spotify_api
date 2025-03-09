@@ -188,6 +188,4 @@ python app.py
 
 - **Seref Can** - Developer
 
-Feel free to contribute by submitting a pull request! 🚀
-
 
