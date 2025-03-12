@@ -4,19 +4,19 @@
 table {
     margin-right: auto;
     border-collapse: collapse; /* Borders look better */
-    width: 75%; /* Adjust width as needed */
+    width: 100%; /* Adjust width as needed */
 }
 
 th, td {
-    padding: 5px;
+    padding: 1px;
     text-align: center; /* Center text inside cells */
     vertical-align: middle; /* Center text vertically */
 }
 
 /* Optional: Make header stand out */
 th {
-    background-color: #16a949; /* Spotify green */
-    color: white;
+    background-color: #16a949; /* #352F44; #FAF0E6 */
+    color: var(--bg-color);
     font-weight: bold;
 }
 button {
@@ -25,8 +25,8 @@ button {
     border: none;
     font-size: 16px;
     border-radius: 10px;
-    background-color: #352F44;
-    color: #FAF0E6;
+    background-color: var(--text-color);
+    color: var(--bg-color) ;
 }
 button:hover {
     background-color: #282332;
@@ -60,9 +60,12 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
+    margin: 0;
+    height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-/* Dark & Light Mode için değişkenler */
+/* Dark & Light Mode için değişkenler bg  */
 :root {
     --bg-color: #ffffff;
     --text-color: #333;
@@ -77,6 +80,7 @@ body {
     --select-bg: #333;
     --select-hover: #444;
     --border-color: #555;
+    background: linear-gradient(to top, #066326, #066326 5%, #121212, #121212 95%);
 }
 
 /* Label Stili */
@@ -143,3 +147,8 @@ label {
     width: 50px;
         }
 
+#plot-container {
+    min-height: 600px; /* Başlangıçta bir yükseklik belirle */
+    width: 100%;
+    overflow: auto; /* İçerik taşarsa kaydırma çubuğu ekler */
+    }
