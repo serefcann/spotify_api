@@ -4,13 +4,22 @@
 table {
     margin-right: auto;
     border-collapse: collapse; /* Borders look better */
-    width: 100%; /* Adjust width as needed */
+    width: 80%; /* Adjust width as needed */
 }
 
-th, td {
+th {
     padding: 1px;
     text-align: center; /* Center text inside cells */
     vertical-align: middle; /* Center text vertically */
+}
+td {
+    padding: 1px;
+    text-align: center; /* Center text inside cells */
+    vertical-align: middle; /* Center text vertically */
+    white-space: nowrap; /* Metni tek satırda tut */
+    overflow:hidden; /* Taşan içeriği gizle */
+    text-overflow:ellipsis; /* Taşan kısmı "..." ile göster */
+    max-width: 350px; /* Hücrenin maksimum genişliği (isteğe bağlı) */
 }
 
 /* Optional: Make header stand out */
